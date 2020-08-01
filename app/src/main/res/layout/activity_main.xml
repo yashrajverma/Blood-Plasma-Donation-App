@@ -4,21 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:id="@+id/card_dashboard"
         android:layout_width="match_parent"
         android:layout_height="98dp"
         android:layout_alignParentTop="true"
-        app:cardBackgroundColor="@color/background"
         android:layout_margin="0dp"
-        app:cardElevation="3dp">
+        android:background="@drawable/toolbarcard">
 
-        <RelativeLayout
-            android:id="@+id/dasshboardrelativetoolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/Bloodonation_title"
@@ -48,7 +44,7 @@
                 android:src="@drawable/ic_baseline_menu_24"
                 android:layout_below="@id/Bloodonation_title"
                 android:tint="@android:color/black"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/menu_title"/>
             <androidx.appcompat.widget.SearchView
@@ -59,8 +55,7 @@
                 android:layout_below="@id/Bloodonation_title"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="5dp" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -100,6 +95,7 @@
                         android:src="@drawable/fa_solidshield_virus_9"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:elevation="10dp"
                         />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
