@@ -10,11 +10,10 @@
     <RelativeLayout
         android:id="@+id/card_dashboard"
         android:layout_width="match_parent"
-        android:layout_height="98dp"
+        android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_margin="0dp"
         android:background="@drawable/toolbarcard">
-
 
             <TextView
                 android:id="@+id/Bloodonation_title"
@@ -27,17 +26,16 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="28sp"
                 android:textStyle="bold" />
-            <com.github.abdularis.civ.CircleImageView
-                android:id="@+id/profile_user_contact_imageView"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/profile_image"
-                android:background="@color/colorPrimaryDark"
-                android:tint="@android:color/white"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="20dp"
-                />
+        <com.github.abdularis.civ.CircleImageView
+            android:id="@+id/profile_user_contact_imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/profile_image" />
             <ImageView
                 android:layout_width="26dp"
                 android:layout_height="26dp"
@@ -45,7 +43,7 @@
                 android:layout_below="@id/Bloodonation_title"
                 android:tint="@android:color/black"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="13dp"
                 android:id="@+id/menu_title"/>
             <androidx.appcompat.widget.SearchView
                 android:layout_width="225dp"
@@ -53,33 +51,34 @@
                 android:background="@android:color/darker_gray"
                 android:layout_toRightOf="@id/menu_title"
                 android:layout_below="@id/Bloodonation_title"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="8dp" />
     </RelativeLayout>
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/card_dashboard"
-        android:background="@color/background">
+        android:layout_below="@id/card_dashboard">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/covid_card"
                 android:layout_width="match_parent"
-                android:layout_height="108dp"
+                android:layout_height="115dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="25dp"
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="10dp"
+                app:cardElevation="15dp"
                 android:translationZ="10dp"
                 android:translationY="3dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <TextView
+                        android:id="@+id/covid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Covid19 Update"
@@ -87,19 +86,48 @@
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="8dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/fa_solidshield_virus_9"
+                        android:src="@drawable/fa_solidshield_virus"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginEnd="8dp"
                         android:elevation="10dp"
                         />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Get Covid \nUpdate"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/white"
+                        android:layout_marginStart="15dp"
+                        android:layout_below="@id/covid"
+                        android:layout_marginTop="15dp"/>
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/Donors_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Donors"
+                android:layout_below="@id/covid_card"
+                android:layout_marginStart="25dp"
+                android:elevation="10dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="28sp"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recycler_view_dashboard"
+                android:layout_below="@id/Donors_text">
 
+            </androidx.recyclerview.widget.RecyclerView>
         </RelativeLayout>
     </ScrollView>
 
