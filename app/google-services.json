@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "192660907619",
+    "firebase_url": "https://bloodonation-7b49d.firebaseio.com",
+    "project_id": "bloodonation-7b49d",
+    "storage_bucket": "bloodonation-7b49d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192660907619:android:0a7932a5b91ab56759fa56",
+        "android_client_info": {
+          "package_name": "com.yashraj.bloodonation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192660907619-k15bdv1omtjunihci7m124rio8a3s4am.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz4CRsh8sVoCqaj9EC8L1KYBcRk2HYQBM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "192660907619-k15bdv1omtjunihci7m124rio8a3s4am.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

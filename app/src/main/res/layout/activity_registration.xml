@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/linear_background"
+    tools:context=".RegistrationActivity">
+    <com.github.abdularis.civ.CircleImageView
+        android:id="@+id/bloodonation_logo"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="159dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/bloodonation_logo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="4dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+
+    <RelativeLayout
+        android:id="@+id/phoneAuth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview1"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    app:ccp_defaultNameCode="IN" />
+
+                <EditText
+                    android:id="@+id/phoneEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="98933-23467"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:backgroundTint="@android:color/white"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!--        android:drawableLeft="@drawable/password"-->
+    <EditText
+        android:id="@+id/codeEditText"
+        android:layout_width="355dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/phoneAuth"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="@android:color/white"
+        android:drawableTint="@android:color/white"
+        android:hint="Enter code here..."
+        android:inputType="phone"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/continueNextButton"
+        android:layout_width="129dp"
+        android:layout_height="58dp"
+        android:layout_below="@+id/codeEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="Continue"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:backgroundTint="@android:color/white"
+        android:elevation="10dp"
+        android:textSize="20sp" />
+
+
+</RelativeLayout>
