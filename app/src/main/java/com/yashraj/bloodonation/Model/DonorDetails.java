@@ -1,70 +1,80 @@
 package com.yashraj.bloodonation.Model;
 
 public class DonorDetails {
-    private String donor_name;
-    private String donor_blood_group;
-    private String donor_address;
-    private String donor_mobile;
-    private String donor_city;
-    private String donor_state;
+    private String user_firstname;
+    private String user_lastname;
+    private String user_bloodgroup;
+    private String user_address;
+    private String user_mobile;
+    private String user_city;
+    private String user_state;
 
     public DonorDetails() {
     }
 
-    public DonorDetails(String donor_name, String donor_blood_group, String donor_address, String donor_mobile, String donor_city, String donor_state) {
-        this.donor_name = donor_name;
-        this.donor_blood_group = donor_blood_group;
-        this.donor_address = donor_address;
-        this.donor_mobile = donor_mobile;
-        this.donor_city = donor_city;
-        this.donor_state = donor_state;
+    public DonorDetails(String user_firstname, String user_lastname, String user_bloodgroup, String user_address, String user_mobile, String user_city, String user_state) {
+        this.user_firstname = user_firstname;
+        this.user_bloodgroup = user_bloodgroup;
+        this.user_address = user_address;
+        this.user_mobile = user_mobile;
+        this.user_city = user_city;
+        this.user_state = user_state;
+        this.user_lastname = user_lastname;
     }
 
-    public String getDonor_name() {
-        return donor_name;
+    public String getUser_firstname() {
+        return user_firstname;
     }
 
-    public void setDonor_name(String donor_name) {
-        this.donor_name = donor_name;
+    public void setUser_firstname(String user_firstname) {
+        this.user_firstname = user_firstname;
     }
 
-    public String getDonor_blood_group() {
-        return donor_blood_group;
+    public String getUser_lastname() {
+        return user_lastname;
     }
 
-    public void setDonor_blood_group(String donor_blood_group) {
-        this.donor_blood_group = donor_blood_group;
+    public void setUser_lastname(String user_lastname) {
+        this.user_lastname = user_lastname;
     }
 
-    public String getDonor_address() {
-        return donor_address;
+    public String getUser_bloodgroup() {
+        return user_bloodgroup;
     }
 
-    public void setDonor_address(String donor_address) {
-        this.donor_address = donor_address;
+    public void setUser_bloodgroup(String user_bloodgroup) {
+        this.user_bloodgroup = user_bloodgroup;
     }
 
-    public String getDonor_mobile() {
-        return donor_mobile;
+    public String getUser_address() {
+        return user_address;
     }
 
-    public void setDonor_mobile(String donor_mobile) {
-        this.donor_mobile = donor_mobile;
+    public void setUser_address(String user_address) {
+        this.user_address = user_address;
     }
 
-    public String getDonor_city() {
-        return donor_city;
+    public String getUser_mobile() {
+        return user_mobile;
     }
 
-    public void setDonor_city(String donor_city) {
-        this.donor_city = donor_city;
+    public void setUser_mobile(String user_mobile) {
+        this.user_mobile = user_mobile;
     }
 
-    public String getDonor_state() {
-        return donor_state;
+    public String getUser_city() {
+        return user_city;
     }
 
-    public void setDonor_state(String donor_state) {
-        this.donor_state = donor_state;
+    public void setUser_city(String user_city) {
+        this.user_city = user_city;
+    }
+
+    public String getUser_state() {
+        return user_state;
+    }
+
+    public void setUser_state(String user_state) {
+        this.user_state = user_state;
     }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/linear_background"
-    tools:context=".RegistrationActivity">
+    tools:context=".Activities.RegistrationActivity">
     <com.github.abdularis.civ.CircleImageView
         android:id="@+id/bloodonation_logo"
         android:layout_width="170dp"
@@ -14,6 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="30dp"
+        android:src="@drawable/group_3_9"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -91,6 +92,7 @@
         android:layout_marginBottom="25dp"
         android:backgroundTint="@android:color/white"
         android:drawableTint="@android:color/white"
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
         android:hint="Enter code here..."
         android:inputType="phone"
         android:singleLine="true"

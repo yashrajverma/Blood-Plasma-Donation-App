@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">Bloodonation</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="google_maps_api_key">AIzaSyBdfFVWbUkdKcPafCNCEndhnV7zGU31nSs</string>
+    <string name="Firstname">Firstname</string>
+    <string name="Lastname">Lastname</string>
+    <string name="Email">Email</string>
+    <string name="Bloodgroup">Bloodgroup</string>
+    <string name="Mobile">Mobile</string>
+    <string name="state">State</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="address">Address</string>
+    <string name="Age">Age</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="que1">Have you recovered from Covid19? </string>
+    <string name="que4">Are you wiling to Donate Plasma? </string>
+    <string name="que3">Have you had a follow up test for Covid19 after you recovered?</string>
+    <string name="que2">Is your Recovery Period is more than 2 weeks?</string>
+    <string name="ad_mob_appid">ca-app-pub-1516503741897274~6871211321</string>
+    <string name="add_unit_id">ca-app-pub-1516503741897274/5366557966</string>
+
+
 </resources>
