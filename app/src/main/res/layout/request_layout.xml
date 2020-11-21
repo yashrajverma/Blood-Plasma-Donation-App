@@ -12,7 +12,7 @@
     app:cardElevation="5dp">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
             android:id="@+id/blood_group_card"
             android:layout_width="50dp"

@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -64,11 +65,10 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     final String TAG = DashBoardActivity.class.getName().toString();
     FirebaseUser mUser;
     ImageView recyclerImage;
-    Button delete_button;
     FirebaseRecyclerAdapter<RequestDetails, RequestViewHolder> firebaseRecyclerAdapter;
     String str_mobile;
     RelativeLayout no_network_state_layout,network_state_layout;
-    Button retry_button;
+    private Button retry_button;
     String str_city="";
     private CardView cardViewdashboard;
     private DatabaseReference databaseReference, request_database;
@@ -128,7 +128,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         header_user = findViewById(R.id.header_username);
         header_address = findViewById(R.id.header_address);
         post_request_button = findViewById(R.id.post_request_fab);
-        delete_button = findViewById(R.id.delete_button);
         retry_button=findViewById(R.id.retry_button);
         no_network_state_layout=findViewById(R.id.no_network_state);
         network_state_layout=findViewById(R.id.network_state);
@@ -144,6 +143,12 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 checkConnection();
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                requestCard();
+            }
+        },1000);
 
 
         ///////////////////////////////////////////////////////////////////////////////// Google Ads View /////////////////////////////////////////////////////////////////////
@@ -254,13 +259,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                delete_button.setVisibility(View.VISIBLE);
-//                delete_button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        request_database.child(mUser.getUid()).removeValue();
-//                    }
-//                });
+
                 if(snapshot.exists()){
                     str_mobile=snapshot.child("mobile").getValue().toString();
                     str_city=snapshot.child("city").getValue().toString();
@@ -341,17 +340,13 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             startActivity(callIntent);
         }
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+    private void requestCard(){
         FirebaseRecyclerOptions<RequestDetails> options =
                 new FirebaseRecyclerOptions.Builder<RequestDetails>().setQuery(request_database.orderByChild("city").equalTo(str_city),RequestDetails.class).build();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RequestDetails, RequestViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull RequestViewHolder holder, int i, @NonNull RequestDetails requestDetails) {
+            protected void onBindViewHolder(@NonNull final RequestViewHolder holder, int i, @NonNull RequestDetails requestDetails) {
                 holder.description.setText(requestDetails.getDescription());
                 holder.mobile.setText(requestDetails.getMobile());
                 holder.name.setText(requestDetails.getName());
@@ -362,6 +357,26 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onClick(View view) {
                         callFunction();
+                    }
+                });
+                request_database.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild("uid")){
+                            holder.delete_button.setVisibility(View.VISIBLE);
+                            holder.delete_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    request_database.child(mUser.getUid()).removeValue();
+                                }
+                            });
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
             }
@@ -375,7 +390,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         };
         firebaseRecyclerAdapter.startListening();
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-
 
     }
 
@@ -405,6 +419,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     public static class RequestViewHolder extends RecyclerView.ViewHolder {
         TextView bloodgroup, name, mobile, date, description, city;
         FloatingActionButton call;
+        Button delete_button;
 
         public RequestViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -415,6 +430,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             description = itemView.findViewById(R.id.request_text_description);
             city = itemView.findViewById(R.id.request_text_city);
             call=itemView.findViewById(R.id.req_call_fab);
+            delete_button=itemView.findViewById(R.id.delete_button);
+
+
         }
     }
 }
