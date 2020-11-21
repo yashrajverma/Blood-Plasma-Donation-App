@@ -67,9 +67,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     ImageView recyclerImage;
     FirebaseRecyclerAdapter<RequestDetails, RequestViewHolder> firebaseRecyclerAdapter;
     String str_mobile;
-    RelativeLayout no_network_state_layout,network_state_layout;
+    RelativeLayout no_network_state_layout, network_state_layout;
     private Button retry_button;
-    String str_city="";
+    String str_city = "";
     private CardView cardViewdashboard;
     private DatabaseReference databaseReference, request_database;
     private FirebaseAuth mAuth;
@@ -115,7 +115,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_drawer);
         cardViewdashboard = findViewById(R.id.covid_card);
-        adView= new AdView(this);
+        adView = new AdView(this);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         menu_title = findViewById(R.id.menu_title);
@@ -128,9 +128,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         header_user = findViewById(R.id.header_username);
         header_address = findViewById(R.id.header_address);
         post_request_button = findViewById(R.id.post_request_fab);
-        retry_button=findViewById(R.id.retry_button);
-        no_network_state_layout=findViewById(R.id.no_network_state);
-        network_state_layout=findViewById(R.id.network_state);
+        retry_button = findViewById(R.id.retry_button);
+        no_network_state_layout = findViewById(R.id.no_network_state);
+        network_state_layout = findViewById(R.id.network_state);
 
         request_database.keepSynced(true);
 
@@ -148,7 +148,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             public void run() {
                 requestCard();
             }
-        },1000);
+        }, 1000);
 
 
         ///////////////////////////////////////////////////////////////////////////////// Google Ads View /////////////////////////////////////////////////////////////////////
@@ -255,24 +255,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
-        request_database.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if(snapshot.exists()){
-                    str_mobile=snapshot.child("mobile").getValue().toString();
-                    str_city=snapshot.child("city").getValue().toString();
-                    recyclerImage.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -321,28 +303,29 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     }
 
 
-    private void requestPermission(){
-        ActivityCompat.requestPermissions(DashBoardActivity.this,new String[]{Manifest.permission.CALL_PHONE},1);
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(DashBoardActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
     }
 
     private void callFunction() {
 
-        Intent callIntent=new Intent(Intent.ACTION_CALL);
-        if(str_mobile.trim().isEmpty()){
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        if (str_mobile.trim().isEmpty()) {
             callIntent.setData(Uri.parse("tel:567788"));
-        }else{
-            callIntent.setData(Uri.parse("tel:"+str_mobile));
+        } else {
+            callIntent.setData(Uri.parse("tel:" + str_mobile));
         }
-        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE)!= PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, "Please Grant Permission", Toast.LENGTH_SHORT).show();
             requestPermission();
-        }else{
+        } else {
             startActivity(callIntent);
         }
     }
-    private void requestCard(){
+
+    private void requestCard() {
         FirebaseRecyclerOptions<RequestDetails> options =
-                new FirebaseRecyclerOptions.Builder<RequestDetails>().setQuery(request_database.orderByChild("city").equalTo(str_city),RequestDetails.class).build();
+                new FirebaseRecyclerOptions.Builder<RequestDetails>().setQuery(request_database.orderByChild("city").equalTo(str_city), RequestDetails.class).build();
 
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<RequestDetails, RequestViewHolder>(options) {
             @Override
@@ -362,7 +345,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 request_database.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild("uid")){
+                        if (snapshot.hasChild("uid")) {
                             holder.delete_button.setVisibility(View.VISIBLE);
                             holder.delete_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -370,6 +353,12 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                                     request_database.child(mUser.getUid()).removeValue();
                                 }
                             });
+                        }
+
+                        if (snapshot.exists()) {
+                            str_mobile = snapshot.child("mobile").getValue().toString();
+                            str_city = snapshot.child("city").getValue().toString();
+                            recyclerImage.setVisibility(View.GONE);
                         }
 
                     }
@@ -393,17 +382,17 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
     }
 
-    public void checkConnection(){
-        ConnectivityManager connectivityManager= (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifi=connectivityManager.getNetworkInfo(connectivityManager.TYPE_WIFI);
-        NetworkInfo mobileconnection=connectivityManager.getNetworkInfo(connectivityManager.TYPE_MOBILE);
-        if(wifi.isConnected()){
+    public void checkConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifi = connectivityManager.getNetworkInfo(connectivityManager.TYPE_WIFI);
+        NetworkInfo mobileconnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_MOBILE);
+        if (wifi.isConnected()) {
             no_network_state_layout.setVisibility(View.GONE);
             network_state_layout.setVisibility(View.VISIBLE);
-        }else if(mobileconnection.isConnected()){
+        } else if (mobileconnection.isConnected()) {
             no_network_state_layout.setVisibility(View.GONE);
             network_state_layout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             no_network_state_layout.setVisibility(View.VISIBLE);
             network_state_layout.setVisibility(View.GONE);
         }
@@ -429,8 +418,8 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             date = itemView.findViewById(R.id.request_text_date);
             description = itemView.findViewById(R.id.request_text_description);
             city = itemView.findViewById(R.id.request_text_city);
-            call=itemView.findViewById(R.id.req_call_fab);
-            delete_button=itemView.findViewById(R.id.delete_button);
+            call = itemView.findViewById(R.id.req_call_fab);
+            delete_button = itemView.findViewById(R.id.delete_button);
 
 
         }
