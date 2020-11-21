@@ -78,7 +78,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     private NavigationView navigationView;
     private BottomNavigationView navView;
     private TextView header_user, header_address;
-    private String username = "", address = "";
     private ImageCarousel imageCarousel;
     private List<CarouselItem> imglist;
     private FloatingActionButton post_request_button;
@@ -120,13 +119,14 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         mUser = mAuth.getCurrentUser();
         menu_title = findViewById(R.id.menu_title);
         navigationView = (NavigationView) findViewById(R.id.navigationID);
+        View hView=navigationView.getHeaderView(0);
+        header_user = hView.findViewById(R.id.header_username);
+        header_address = hView.findViewById(R.id.header_address);
         navView = findViewById(R.id.bottomnav_dashboard);
         profile_imageview = findViewById(R.id.profile_user_contact_imageView);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Donor");
         request_database = FirebaseDatabase.getInstance().getReference().child("Request_Blood");
 
-        header_user = findViewById(R.id.header_username);
-        header_address = findViewById(R.id.header_address);
         post_request_button = findViewById(R.id.post_request_fab);
         retry_button = findViewById(R.id.retry_button);
         no_network_state_layout = findViewById(R.id.no_network_state);
@@ -192,6 +192,24 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         menu_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                databaseReference.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String username = "", address = "";
+                        if (snapshot.exists()) {
+                            username = snapshot.child("user_firstname").getValue().toString();
+                            address = snapshot.child("user_address").getValue().toString();
+                            header_user.setText(username);
+                            header_address.setText(address);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
                 if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START);
@@ -213,36 +231,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         });
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) DashBoardActivity.this);
 
-//        databaseReference.child(mUser.getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.exists()){
-//                    username=snapshot.child("user_firstname").getValue().toString();
-//                    address=snapshot.child("user_address").getValue().toString();
-//                    header_user.setText(username);
-//                    header_address.setText(address);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
 
-//        request_database.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
         cardViewdashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
