@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -66,7 +67,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     FirebaseUser mUser;
     ImageView recyclerImage;
     FirebaseRecyclerAdapter<RequestDetails, RequestViewHolder> firebaseRecyclerAdapter;
-    String str_mobile;
+    String str_mobile="";
     RelativeLayout no_network_state_layout, network_state_layout;
     private Button retry_button;
     String str_city = "";
@@ -243,6 +244,37 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
             }
         });
+        databaseReference.child(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("user_city")) {
+                    str_city = snapshot.child("user_city").getValue().toString();
+                    Log.i("TAG", "onDataChange: " + str_city);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        request_database.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    if(snapshot.hasChild(mUser.getUid())){
+//                        if(snapshot.child(mUser.getUid()).child("mobile").getValue().toString()==str_city){
+//
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 
@@ -321,10 +353,12 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
             protected void onBindViewHolder(@NonNull final RequestViewHolder holder, int i, @NonNull RequestDetails requestDetails) {
                 holder.description.setText(requestDetails.getDescription());
                 holder.mobile.setText(requestDetails.getMobile());
+                str_mobile=requestDetails.getMobile();
                 holder.name.setText(requestDetails.getName());
                 holder.bloodgroup.setText(requestDetails.getBloodgroup());
                 holder.city.setText(requestDetails.getCity());
                 holder.date.setText(requestDetails.getDate());
+                recyclerImage.setVisibility(View.GONE);
                 holder.call.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -335,6 +369,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.hasChild("uid")) {
+
                             holder.delete_button.setVisibility(View.VISIBLE);
                             holder.delete_button.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -344,12 +379,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                             });
                         }
 
-                        if (snapshot.exists()) {
-                            str_mobile = snapshot.child("mobile").getValue().toString();
-                            str_city = snapshot.child("city").getValue().toString();
-                            recyclerImage.setVisibility(View.GONE);
-                        }
-
                     }
 
                     @Override
@@ -357,6 +386,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
                     }
                 });
+
             }
 
             @NonNull

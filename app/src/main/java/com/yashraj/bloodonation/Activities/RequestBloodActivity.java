@@ -21,8 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.yashraj.bloodonation.R;
 
 import java.util.HashMap;
@@ -53,9 +56,6 @@ public class RequestBloodActivity extends AppCompatActivity {
         str_blood = sp.getSelectedItem().toString();
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-
-
-
         dateEditText = findViewById(R.id.req_date);
         nameEditText = findViewById(R.id.req_username);
         mobileEditText = findViewById(R.id.req_mobile);
@@ -63,13 +63,32 @@ public class RequestBloodActivity extends AppCompatActivity {
         cityEditText = findViewById(R.id.req_city);
         button = findViewById(R.id.request_button);
         mUser = mAuth.getCurrentUser().getUid();
+        donor_database.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    str_mobile = snapshot.child("user_mobile").getValue().toString();
+                    mobileEditText.setText(str_mobile);
+                    mobileEditText.setEnabled(false);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
 //        retrieveData();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (dateEditText.getText().toString().isEmpty() && nameEditText.getText().toString().isEmpty()
-                        && mobileEditText.getText().toString().isEmpty() && descriptionEditText.getText().toString().isEmpty() && cityEditText.getText().toString().isEmpty()) {
+                         && descriptionEditText.getText().toString().isEmpty() && cityEditText.getText().toString().isEmpty()) {
                     dateEditText.setError("Fill field");
                     nameEditText.setError("Fill field");
                     mobileEditText.setError("Fill field");
@@ -83,7 +102,6 @@ public class RequestBloodActivity extends AppCompatActivity {
                     }
                 } else {
                     str_date = dateEditText.getText().toString();
-                    str_mobile = mobileEditText.getText().toString();
                     str_name = nameEditText.getText().toString();
                     str_description = descriptionEditText.getText().toString();
                     str_city = cityEditText.getText().toString();
